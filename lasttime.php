@@ -11,11 +11,17 @@ $qur="SELECT * FROM user_time WHERE logged_time LIKE '%$curDate%' AND user_id='"
 $res=mysqli_query($conn, $qur);
 $row = $res->fetch_assoc();
 
-	/*Exact DateTime Difference*/
-    $exct=  strtotime($row['logged_time']) - strtotime($row['logged_out']);
-	$date_exact=date('H:i:s',$exct);
-	$time=explode(':',$date_exact);
-	$time_string= $time[0]." Hours ".$time[1]." Minutes ".$time[2]." Seconds";
+/*Exact DateTime Difference*/
+$dteStart = new DateTime($row['logged_time']);
+$dteEnd   = new DateTime($row['logged_out']);
+$dteDiff  = $dteStart->diff($dteEnd);
+
+ 	// $exct=  strtotime($row['logged_time']) - strtotime($row['logged_out']);
+	// $date_exact=date('Y-m-d H:i:s',$exct);
+	// $time=explode(':',$date_exact);
+	// $time_string= $time[0]." Hours ".$time[1]." Minutes ".$time[2]." Seconds";
+	$time_string= $dteDiff->format("%H"." Hours "."%I"." Minutes "."%S"." Seconds");
+
 
 ?>
 <head>

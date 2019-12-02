@@ -32,7 +32,7 @@ $qur="SELECT * FROM user_time WHERE logged_time LIKE '%$curDate%' AND user_id='"
 $res=mysqli_query($conn, $qur);
 if($res->num_rows > 0){
   //Update Details 
-  $query="UPDATE user_time SET logged_out = '".$date_time."' WHERE user_id= '".$userID."' ";
+  $query="UPDATE user_time SET logged_out = '".$date_time."' WHERE user_id= '".$userID."' AND logged_time LIKE '%$curDate%'";
   $result=mysqli_query($conn, $query);
   if(mysqli_affected_rows($conn)){
       echo '<script language="javascript">';
